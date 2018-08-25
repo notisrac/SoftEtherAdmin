@@ -1,0 +1,27 @@
+{
+  "name": "softetheradmin",
+  "version": "1.0.0",
+  "description": "Web UI for administering a SoftEther server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "softether",
+    "webui",
+    "ui",
+    "admin",
+    "administration"
+  ],
+  "author": "noti",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "child-process-promise": "^2.2.1",
+    "config": "^2.0.1",
+    "csv-parse": "^2.5.0",
+    "express": "^4.16.3",
+    "memory-cache": "^0.2.0",
+    "path": "^0.12.7"
+  }
+}

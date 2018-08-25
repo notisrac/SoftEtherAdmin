@@ -1,0 +1,9 @@
+{
+    "serverPort": 8000,
+    "softEther" : {
+        "address" : "localhost",
+        "port" : 5555,
+        "vpncmdPath" : "path to the vpncmd executable",
+        "password" : ""
+    }
+}
