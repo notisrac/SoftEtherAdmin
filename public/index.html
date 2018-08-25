@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="softEtherAdmin">
 
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
 
     <title>SoftEher Admin</title>
 
@@ -27,6 +28,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
+    <script src="assets/js/app/app.js" ></script>
 </head>
 
 <body>
@@ -79,11 +81,11 @@
 
         <!-- MAIN PANEL HEADER -->
 
-        <div class="main-panel">
+        <div class="main-panel" ng-controller="HeaderController as hc">
             <nav class="navbar navbar-default navbar-fixed">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <span class="navbar-brand">NotiServer</span>
+                        <span class="navbar-brand">{{hc.serverName}}</span>
                     </div>
                 </div>
             </nav>
@@ -102,7 +104,7 @@
                                 </div>
                                 <div class="content">
                                     <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
+                                    1 + 2 = {{1 + 2}}
                                     <div class="footer">
                                         <div class="legend">
                                             <i class="fa fa-circle text-info"></i> Open
