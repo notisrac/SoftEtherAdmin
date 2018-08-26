@@ -1,12 +1,34 @@
 var exec = require('child-process-promise').exec;
 const parse = require('csv-parse');
-
+// the defult options: parse table headers
+const csvParseOptions = {
+    columns: true,
+    delimiter: ',',
+    cast: true
+};
+// key-value pair type: don't parse table headers, start from row 2
+const csvParseOptions_flat = {
+    columns: null,
+    delimiter: ',',
+    cast: true,
+    from: 2
+};
+const csvParseOptions_object = {
+    columns: true,
+    delimiter: ',',
+    cast: true,
+    objname: 'Item'
+};
 
 // https://www.softether.org/4-docs/1-manual/6._Command_Line_Management_Utility_Manual
 
+
 var softEther = {
     about: function () {
-        return this.executeCSVCommand('About');
+        return this.executeCommand('About');
+    },
+    serverInfoGet: function () {
+        return this.executeCSVCommand('ServerInfoGet', null, null, csvParseOptions_flat, true);
     },
     serverStatusGet: function () {
         return this.executeCSVCommand('ServerStatusGet');
@@ -78,8 +100,16 @@ var softEther = {
         return this.executeCSVCommand('VpnAzureGetStatus');
     },
 
+    flattenData: function (data) {
+        var retData = {};
+        data.forEach(element => {
+            // console.log(element);
+            retData[element[0]] = element[1];
+        });
+        return retData;
+    },
 
-    executeCSVCommand: function (command, commandParams = null, hub = null) {
+    executeCSVCommand: function (command, commandParams = null, hub = null, parseOptions = csvParseOptions, flatten = false) {
         var self = this;
 
         return new Promise(function(resolve, reject) {
@@ -87,11 +117,11 @@ var softEther = {
             self.executeCommand(command, commandParams, hub, true)
             .then(function (result) {
                 // try to parse the resulting csv
-                parse(result, {columns: true, delimiter: ',', cast: true}, function (err, output) {
+                parse(result, parseOptions, function (err, output) {
                     if (err) {
                         reject(err);
                     }
-                    resolve(output);
+                    resolve((flatten)? self.flattenData(output) : output);
                 });
             })
             .catch(function (err) {

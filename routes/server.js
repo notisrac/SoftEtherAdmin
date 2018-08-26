@@ -2,9 +2,16 @@ var express = require('express');
 var router = express.Router();
 var softEther = require('../modules/softEther');
 var cache = require('../modules/cache');
+var cors = require('cors');
+
+router.use(cors());
 
 router.get('/status', cache(10), function (req, res) {
     handleResponse(softEther.serverStatusGet(), res);
+});
+
+router.get('/info', cache(10), function (req, res) {
+    handleResponse(softEther.serverInfoGet(), res);
 });
 
 router.get('/about', cache(10), function (req, res) {
@@ -17,6 +24,14 @@ router.get('/check', cache(10), function (req, res) {
 
 router.get('/hubList', cache(10), function (req, res) {
     handleResponse(softEther.hubList(), res);
+});
+
+router.get('/clientList', cache(10), function (req, res) {
+    handleResponse(softEther.etherIpClientList(), res);
+});
+
+router.get('/connectionList', cache(10), function (req, res) {
+    handleResponse(softEther.connectionList(), res);
 });
 
 function handleResponse(promise, res) {
