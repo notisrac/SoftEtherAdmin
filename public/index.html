@@ -47,7 +47,7 @@
 
     -->
 
-            <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper" ng-controller="SidebarController">
                 <div class="logo">
                     <a href="index.html" class="simple-text">
                         SoftEther Admin
@@ -55,7 +55,13 @@
                 </div>
 
                 <ul class="nav">
-                    <li class="active">
+                    <li ng-repeat="item in navData" ng-class="{active: item.isActive}">
+                        <a href="#!/{{item.path}}">
+                            <i class="{{item.icon}}"></i>
+                            <p>{{item.text}}</p>
+                        </a>
+                    </li>
+                    <!-- <li class="active">
                         <a href="#!/dashboard">
                             <i class="pe-7s-graph"></i>
                             <p>Dashboard</p>
@@ -78,149 +84,23 @@
                             <i class="pe-7s-config"></i>
                             <p>Config</p>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
 
         <!-- MAIN PANEL HEADER -->
-
-        <div class="main-panel" ng-controller="HeaderController as hc">
+        <div class="main-panel" ng-controller="HeaderController">
             <nav class="navbar navbar-default navbar-fixed">
                 <div class="container-fluid">
-                    <div class="navbar-header">
-                        <span class="navbar-brand">{{hc.hostName}}</span>
+                    <div class="navbar-header">                            
+                        <span class="navbar-brand"><span class="fa fa-spinner fa-spin" style="font-size:24px" ng-show="loading"></span>{{hostName}}</span>
                     </div>
                 </div>
             </nav>
 
             <!-- MAIN PANEL BODY -->
-
             <div class="content" ng-view>
-                <!-- <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-
-                                <div class="header">
-                                    <h4 class="title">Email Statistics</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="content">
-                                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                                    1 + 2 = {{1 + 2}}
-                                    <div class="footer">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Bounce
-                                            <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Users Behavior</h4>
-                                    <p class="category">24 Hours performance</p>
-                                </div>
-                                <div class="content">
-                                    <div id="chartHours" class="ct-chart"></div>
-                                    <div class="footer">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Click
-                                            <i class="fa fa-circle text-warning"></i> Click Second Time
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Striped Table with Hover</h4>
-                                    <p class="category">Here is a subtitle for this table</p>
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Salary</th>
-                                            <th>Country</th>
-                                            <th>City</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Dakota Rice</td>
-                                                <td>$36,738</td>
-                                                <td>Niger</td>
-                                                <td>Oud-Turnhout</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Minerva Hooper</td>
-                                                <td>$23,789</td>
-                                                <td>Curaçao</td>
-                                                <td>Sinaai-Waas</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sage Rodriguez</td>
-                                                <td>$56,142</td>
-                                                <td>Netherlands</td>
-                                                <td>Baileux</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Philip Chaney</td>
-                                                <td>$38,735</td>
-                                                <td>Korea, South</td>
-                                                <td>Overland Park</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Doris Greene</td>
-                                                <td>$63,542</td>
-                                                <td>Malawi</td>
-                                                <td>Feldkirchen in Kärnten</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Mason Porter</td>
-                                                <td>$78,615</td>
-                                                <td>Chile</td>
-                                                <td>Gloucester</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-    
-                                </div>
-                            </div>
-                        </div>
-    
-    
-    
-                    </div>
-    
-
-                </div> -->
             </div>
 
             <footer class="footer">

@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="header">
+        <h4 class="title">Hubs</h4>
+        <p class="category">The hubs registered in this server</p>
+    </div>
+    <div class="content table-responsive table-full-width">
+        <loading-indicator loading="$ctrl.loading" errorMessage="$ctrl.errorMessage"></loading-indicator>
+        <table class="table table-hover table-striped" ng-hide="$ctrl.errorMessage || $ctrl.loading">
+            <thead>
+                <th>Virtual Hub Name</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Users</th>
+                <th>Groups</th>
+                <th>Sessions</th>
+                <th>MAC Tables</th>
+                <th>IP Tables</th>
+                <th>Num Logins</th>
+                <th>Last Login</th>
+                <th>Last Communication</th>
+                <th>Transfer Bytes</th>
+                <th>Transfer Packets</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in $ctrl.data">
+                    <td>{{item["Virtual Hub Name"]}}</td>
+                    <td>{{item["Status"]}}</td>
+                    <td>{{item["Type"]}}</td>
+                    <td>{{item["Users"]}}</td>
+                    <td>{{item["Groups"]}}</td>
+                    <td>{{item["Sessions"]}}</td>
+                    <td>{{item["MAC Tables"]}}</td>
+                    <td>{{item["IP Tables"]}}</td>
+                    <td>{{item["Num Logins"]}}</td>
+                    <td>{{item["Last Login"]}}</td>
+                    <td>{{item["Last Communication"]}}</td>
+                    <td>{{item["Transfer Bytes"]}}</td>
+                    <td>{{item["Transfer Packets"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

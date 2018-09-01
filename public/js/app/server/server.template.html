@@ -1,99 +1,14 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="ServerController">
     <div class="row">
 
         <!-- HUBS -->
         <div class="col-md-12">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Hubs</h4>
-                    <p class="category">The hubs registered in this server</p>
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <th>Virtual Hub Name</th>
-                            <th>Status</th>
-                            <th>Type</th>
-                            <th>Users</th>
-                            <th>Groups</th>
-                            <th>Sessions</th>
-                            <th>MAC Tables</th>
-                            <th>IP Tables</th>
-                            <th>Num Logins</th>
-                            <th>Last Login</th>
-                            <th>Last Communication</th>
-                            <th>Transfer Bytes</th>
-                            <th>Transfer Packets</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>GamingVPN</td>
-                                <td>Online</td>
-                                <td>Standalone</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>22</td>
-                                <td>2018-08-20 18:39:35</td>
-                                <td>2018-08-26 20:11:31</td>
-                                <td>94,157,798</td>
-                                <td>511,722</td>
-                            </tr>
-                            <tr>
-                                <td>Other VPN</td>
-                                <td>Online</td>
-                                <td>Standalone</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>22</td>
-                                <td>2018-08-20 18:39:35</td>
-                                <td>2018-08-26 20:11:31</td>
-                                <td>94,157,798</td>
-                                <td>511,722</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <hub-list></hub-list>
         </div>
 
         <!-- ACTIVE CONNECTIONS -->
         <div class="col-md-12">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Active connections to the server</h4>
-                    <!-- <p class="category">The hubs registered in this server</p> -->
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <th>Connection Name</th>
-                            <th>Connection Source</th>
-                            <th>Connection Start</th>
-                            <th>Type</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>CID-145</td>
-                                <td>catv-89-133-22-27.catv.broadband.hu: 59152</td>
-                                <td>2018-08-26 (Sun) 20:00:11</td>
-                                <td>Management RPC</td>
-                            </tr>
-                            <tr>
-                                <td>CID-150</td>
-                                <td>catv-89-133-22-27.catv.broadband.hu: 65232</td>
-                                <td>2018-08-26 (Sun) 20:19:32</td>
-                                <td>Management RPC</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <connections-list></connections-list>
         </div>
 
     </div>
