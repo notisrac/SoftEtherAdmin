@@ -28,7 +28,7 @@ var softEther = {
         return this.executeCommand('About');
     },
     serverInfoGet: function () {
-        return this.executeCSVCommand('ServerInfoGet', null, null, csvParseOptions_flat, true);
+        return this.executeCSVCommand('ServerInfoGet', null, null, 0, 0, csvParseOptions_flat, true);
     },
     serverStatusGet: function () {
         return this.executeCSVCommand('ServerStatusGet');
@@ -58,7 +58,7 @@ var softEther = {
         return this.executeCSVCommand('Caps');
     },
     configGet: function () {
-        return this.executeCSVCommand('ConfigGet');
+        return this.executeHeaderlessCommand('ConfigGet', null, null, 2, 0);
     },
     routerList: function () {
         return this.executeCSVCommand('RouterList');
@@ -109,12 +109,17 @@ var softEther = {
         return retData;
     },
 
-    executeCSVCommand: function (command, commandParams = null, hub = null, parseOptions = csvParseOptions, flatten = false) {
+    executeHeaderlessCommand: function (command, commandParams = null, hub = null, trimStartLines = 0, trimEndLines = 0) {
+        // execute the command, with csv enabled
+        return this.executeCommand(command, commandParams, hub, true, trimStartLines, trimEndLines);
+    },
+
+    executeCSVCommand: function (command, commandParams = null, hub = null, trimStartLines = 0, trimEndLines = 0, parseOptions = csvParseOptions, flatten = false) {
         var self = this;
 
         return new Promise(function(resolve, reject) {
             // execute the command, with csv enabled
-            self.executeCommand(command, commandParams, hub, true)
+            self.executeCommand(command, commandParams, hub, true, trimStartLines, trimEndLines)
             .then(function (result) {
                 // try to parse the resulting csv
                 parse(result, parseOptions, function (err, output) {
@@ -131,7 +136,8 @@ var softEther = {
     },
 
     // ./vpncmd  localhost:port /SERVER /PASSWORD:asd /HUB:VPN /CSV /CMD hublist
-    executeCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV) {
+    executeCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV, trimStartLines = 0, trimEndLines = 0) {
+        var self = this;
         var command = this.assembleCommand(softEtherCommand, softEtherCommandParams, hubName, enableCSV);
         // TODO removeme
         console.log(command);
@@ -145,6 +151,13 @@ var softEther = {
                 console.log(stderr);
                 if (stderr || stdout.startsWith('Error occurred.') ) {
                     reject('Error while executing command "' + softEtherCommand + '": \r\n' + stderr + '\r\n' + stdout);
+                }
+
+                if (trimStartLines > 0) {
+                    stdout = self.trimStart(stdout, trimStartLines);
+                }
+                if (trimEndLines > 0) {
+                    stdout = self.trimEnd(stdout, trimEndLines);
                 }
 
                 resolve(stdout);
@@ -188,6 +201,25 @@ var softEther = {
         }
 
         return command;
+    },
+
+    trimStart: function (data, count) {
+        if (count > 0) {
+            for (let i = 0; i < count; i++) {
+                data = data.substring(data.indexOf("\n") + 1);
+            }
+        }
+        return data;
+    },
+
+    trimEnd: function (data, count) {
+        if (count > 0) {
+            for (let i = 0; i < count; i++) {
+                data = data.substring(data.lastIndexOf("\n") + 1, -1 );
+            }
+        }
+
+        return data;
     }
 };
 
