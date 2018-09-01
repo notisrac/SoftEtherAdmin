@@ -33,6 +33,7 @@
     <script src="js/app/app.js"></script>
     <script src="js/app/dashboard/dashboard.js"></script>
     <script src="js/app/server/server.js"></script>
+    <script src="js/app/config/config.js"></script>
 </head>
 
 <body>
@@ -53,7 +54,7 @@
                         SoftEther Admin
                     </a>
                 </div>
-
+                <!-- NAV BAR -->
                 <ul class="nav">
                     <li ng-repeat="item in navData" ng-class="{active: item.isActive}">
                         <a href="#!/{{item.path}}">
@@ -61,30 +62,7 @@
                             <p>{{item.text}}</p>
                         </a>
                     </li>
-                    <!-- <li class="active">
-                        <a href="#!/dashboard">
-                            <i class="pe-7s-graph"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#!/server">
-                            <i class="pe-7s-server"></i>
-                            <p>Server</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#!/hubs">
-                            <i class="pe-7s-share"></i>
-                            <p>Hubs</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="typography.html">
-                            <i class="pe-7s-config"></i>
-                            <p>Config</p>
-                        </a>
-                    </li> -->
+
                 </ul>
             </div>
         </div>

@@ -34,6 +34,10 @@ router.get('/connectionList', cache(10), function (req, res) {
     handleResponse(softEther.connectionList(), res);
 });
 
+router.get('/config', cache(10), function (req, res) {
+    handleResponse(softEther.configGet(), res);
+});
+
 function handleResponse(promise, res) {
     promise
     .then(function (data) {

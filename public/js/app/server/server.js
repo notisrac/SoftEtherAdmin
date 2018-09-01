@@ -26,7 +26,7 @@ module.component('hubList', {
       ctrl.data = response.data;
     }, function (reason) {
       console.log(reason);
-      ctrl.errorMessage = reason;
+      ctrl.errorMessage = reason.statusText;
     }).finally(function () {
       ctrl.loading = false;
     });
@@ -45,7 +45,7 @@ module.component('connectionsList', {
       ctrl.data = response.data;
     }, function (reason) {
       console.log(reason);
-      ctrl.errorMessage = reason;
+      ctrl.errorMessage = reason.statusText;
     }).finally(function () {
       ctrl.loading = false;
     });

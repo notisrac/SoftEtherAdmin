@@ -3,7 +3,8 @@
 var softEtherAdminApp = angular.module('softEtherAdminApp', [
     'ngRoute',
     'dashboardModule',
-    'serverModule'
+    'serverModule',
+    'configModule'
 ]);
 
 softEtherAdminApp.config(['$locationProvider', '$routeProvider',
@@ -69,6 +70,10 @@ softEtherAdminApp.controller('SidebarController', function ($scope, $location) {
         }
     });
 });
+
+/*
+ *          GENERIC COMPONENTS
+ */
 
 softEtherAdminApp.component('loadingIndicator', {
     templateUrl: 'loadingIndicator.html',
