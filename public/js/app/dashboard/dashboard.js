@@ -17,8 +17,6 @@ module.controller('dashboardController', function ($scope, $http) {
   self.errorMessage_status = null;
   self.loading_info = true;
   self.errorMessage_info = null;
-  self.loading_caps = true;
-  self.errorMessage_caps = null;
 
   // get the server status
   $http.get('api/server/status').then(function (response) {
@@ -81,19 +79,6 @@ module.controller('dashboardController', function ($scope, $http) {
     self.errorMessage_info = reason.statusText;
   }).finally(function () {
     self.loading_info = false;
-  });
-
-
-  // get the server capabilities
-  $http.get('api/server/caps').then(function (response) {
-    var data = response.data;
-    self.capsData = data;
-
-  }, function (reason) {
-    console.log(reason);
-    self.errorMessage_caps = reason.statusText;
-  }).finally(function () {
-    self.loading_caps = false;
   });
 
   // console.log(self);

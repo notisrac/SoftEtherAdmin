@@ -12,25 +12,21 @@ module.config(['$routeProvider', function ($routeProvider) {
 }])
 
 module.controller('ServerController', function ($scope, $http) {
-});
+  var self = this;
+  self.loading_caps = true;
+  self.errorMessage_caps = null;
 
-module.component('hubList', {
-  templateUrl: 'js/app/server/server.hublist.template.html',
-  bindings: {},
-  controller: function ($http) {
-    var ctrl = this;
-    ctrl.loading = true;
-    ctrl.errorMessage = null;
+  // get the server capabilities
+  $http.get('api/server/caps').then(function (response) {
+    var data = response.data;
+    self.capsData = data;
 
-    $http.get('api/server/hublist').then(function (response) {
-      ctrl.data = response.data;
-    }, function (reason) {
-      console.log(reason);
-      ctrl.errorMessage = reason.statusText;
-    }).finally(function () {
-      ctrl.loading = false;
-    });
-  }
+  }, function (reason) {
+    console.log(reason);
+    self.errorMessage_caps = reason.statusText;
+  }).finally(function () {
+    self.loading_caps = false;
+  });
 });
 
 module.component('connectionsList', {

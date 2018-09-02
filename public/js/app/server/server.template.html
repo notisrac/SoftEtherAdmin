@@ -1,15 +1,14 @@
 <div class="container-fluid" ng-controller="ServerController as sc">
     <div class="row">
-
-        <!-- HUBS -->
-        <div class="col-md-12">
-            <hub-list></hub-list>
-        </div>
-
         <!-- ACTIVE CONNECTIONS -->
         <div class="col-md-12">
             <connections-list></connections-list>
         </div>
+    </div>
 
+    <div class="row">
+        <!-- CAPS -->
+        <key-value-table data="sc.capsData" header-key="Name" header-value="Value" title="Server Settings" category="Feature status"
+            icon="pe-7s-config" size="6" error-message="sc.errorMessage_caps" loading="sc.loading_caps"></key-value-table>
     </div>
 </div>

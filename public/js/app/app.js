@@ -4,7 +4,8 @@ var softEtherAdminApp = angular.module('softEtherAdminApp', [
     'ngRoute',
     'dashboardModule',
     'serverModule',
-    'configModule'
+    'configModule',
+    'hubsModule'
 ]);
 
 softEtherAdminApp.config(['$locationProvider', '$routeProvider',
