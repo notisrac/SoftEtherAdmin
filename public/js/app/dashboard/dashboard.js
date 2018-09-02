@@ -7,10 +7,10 @@ var module = angular.module('dashboardModule', [
 module.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/dashboard', {
     templateUrl: 'js/app/dashboard/dashboard.template.html',
-    controller: 'dashboard'
+    controller: 'dashboardController'
   });
 }]);
 
-module.controller('dashboard', [function () {
+module.controller('dashboardController', [function () {
   // TODO fill me
 }]);
