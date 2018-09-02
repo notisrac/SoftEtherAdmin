@@ -1,25 +1,25 @@
 <div class="container-fluid" ng-controller="configController">
-        <div class="row">
+    <div class="row">
 
-            <!-- HUBS -->
-            <div class="col-md-12">
-                <div class="card">
-                    <!-- <textarea rows="35" class="form-control" placeholder="Server config">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea> -->
-                    <div class="header">
-                        <h4 class="title">Server config</h4>
-                    </div>
-                    <div class="content"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <loading-indicator loading="loading" errorMessage="errorMessage"></loading-indicator>
-                                    <textarea rows="30" class="form-control" placeholder="Server config" ng-hide="errorMessage || loading">{{serverConfig}}</textarea>
-                                </div>
+        <!-- CONFIG -->
+        <div class="col-md-12">
+            <div class="card">
+                <!-- <textarea rows="35" class="form-control" placeholder="Server config">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea> -->
+                <div class="header">
+                    <h4 class="title">Server config</h4>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <loading-indicator loading="loading" errorMessage="errorMessage"></loading-indicator>
+                                <textarea rows="30" class="form-control" placeholder="Server config" ng-hide="errorMessage || loading">{{serverConfig}}</textarea>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
     </div>
+</div>
