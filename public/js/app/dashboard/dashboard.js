@@ -26,20 +26,20 @@ module.controller('dashboardController', function ($scope, $http) {
 
     // calculate the uptime
     var startDateString = data['Server Started at'].replace(/\(\w*\)./g, '');
-    $scope.uptime = getUptime(startDateString);
+    self.uptime = getUptime(startDateString);
 
     // calculate the unicast data transferred
     var unicastOutData = data['Outgoing Unicast Total Size'].replace(/\D/g, ''); // bytes
     var unicastInData = data['Incoming Unicast Total Size'].replace(/\D/g, ''); // bytes
-    $scope.unicastData = convertToLargestUnit(unicastInData) + '/' + convertToLargestUnit(unicastOutData);
+    self.unicastData = convertToLargestUnit(unicastInData) + '/' + convertToLargestUnit(unicastOutData);
 
     // calculate the broadcast data transferred
     var broadcastOutData = data['Outgoing Broadcast Total Size'].replace(/\D/g, ''); // bytes
     var broadcastInData = data['Incoming Broadcast Total Size'].replace(/\D/g, ''); // bytes
-    $scope.broadcastData = convertToLargestUnit(broadcastInData) + '/' + convertToLargestUnit(broadcastOutData);
+    self.broadcastData = convertToLargestUnit(broadcastInData) + '/' + convertToLargestUnit(broadcastOutData);
 
-    $scope.numberOfUsers = data['Number of Users'];
-    $scope.numberOfSessions = data['Number of Sessions'];
+    self.numberOfUsers = data['Number of Users'];
+    self.numberOfSessions = data['Number of Sessions'];
 
     var keysToKeep = [
       'Server Type',
@@ -61,7 +61,7 @@ module.controller('dashboardController', function ($scope, $http) {
         }
       }
     }
-    $scope.statusData = data;
+    self.statusData = data;
 
   }, function (reason) {
     console.log(reason);
@@ -74,7 +74,7 @@ module.controller('dashboardController', function ($scope, $http) {
   // get the server info
   $http.get('api/server/info').then(function (response) {
     var data = response.data;
-    $scope.infoData = data;
+    self.infoData = data;
 
   }, function (reason) {
     console.log(reason);
@@ -87,7 +87,7 @@ module.controller('dashboardController', function ($scope, $http) {
   // get the server capabilities
   $http.get('api/server/caps').then(function (response) {
     var data = response.data;
-    $scope.capsData = data;
+    self.capsData = data;
 
   }, function (reason) {
     console.log(reason);
