@@ -12,16 +12,17 @@ angular.module('configModule', [
   }])
   
 .controller('configController', function($scope, $http) {
-  $scope.loading = true;
-  $scope.errorMessage = null;
+  var self = this;
+  self.loading = true;
+  self.errorMessage = null;
 
   $http.get('api/server/config').then(function (response) {
-    $scope.serverConfig = response.data;
+    self.serverConfig = response.data;
   }, function (reason) {
     console.log('error');
     console.log(reason.statusText);
-    $scope.errorMessage = reason.statusText;
+    self.errorMessage = reason.statusText;
   }).finally(function () {
-    $scope.loading = false;
+    self.loading = false;
   });
 });

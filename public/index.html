@@ -15,7 +15,8 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet" /> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Animation library for notifications   -->
     <link href="css/animate.min.css" rel="stylesheet" />
@@ -28,6 +29,12 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <style>
+        /* this is to fix the the every other row has a top border issue */
+        .table > tbody > tr > td {
+            border-top: 0px;
+        }
+    </style>
 
     <!-- App -->
     <script src="js/app/app.js"></script>
@@ -48,7 +55,7 @@
 
     -->
 
-            <div class="sidebar-wrapper" ng-controller="SidebarController">
+            <div class="sidebar-wrapper" ng-controller="SidebarController as sc">
                 <div class="logo">
                     <a href="index.html" class="simple-text">
                         SoftEther Admin
@@ -56,7 +63,7 @@
                 </div>
                 <!-- NAV BAR -->
                 <ul class="nav">
-                    <li ng-repeat="item in navData" ng-class="{active: item.isActive}">
+                    <li ng-repeat="item in sc.navData" ng-class="{active: item.isActive}">
                         <a href="#!/{{item.path}}">
                             <i class="{{item.icon}}"></i>
                             <p>{{item.text}}</p>
@@ -68,11 +75,14 @@
         </div>
 
         <!-- MAIN PANEL HEADER -->
-        <div class="main-panel" ng-controller="HeaderController">
+        <div class="main-panel" ng-controller="HeaderController as hc">
             <nav class="navbar navbar-default navbar-fixed">
                 <div class="container-fluid">
                     <div class="navbar-header">                            
-                        <span class="navbar-brand"><span class="fa fa-spinner fa-spin" style="font-size:24px" ng-show="loading"></span>{{hostName}}</span>
+                        <span class="navbar-brand">
+                            <loading-indicator is-loading="hc.loading" error-message="hc.errorMessage"></loading-indicator>
+                            {{hc.hostName}}
+                        </span>
                     </div>
                 </div>
             </nav>
@@ -97,7 +107,8 @@
 
 <!--   Core JS Files   -->
 <script src="js/ui/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="js/ui/bootstrap.min.js" type="text/javascript"></script>
+<!-- <script src="js/ui/bootstrap.min.js" type="text/javascript"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!--  Charts Plugin -->
 <script src="js/ui/chartist.min.js"></script>

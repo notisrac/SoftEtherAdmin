@@ -16,22 +16,26 @@ softEtherAdminApp.config(['$locationProvider', '$routeProvider',
 ]);
 
 softEtherAdminApp.controller('HeaderController', function ($scope, $http) {
-    $scope.loading = true;
+    var self = this;
+    self.loading = true;
     
     $http.get('api/server/info').then(function(response) {
         var data = response.data;
-        $scope.hostName = data['Host Name'];
-        $scope.version = data['Version'];
+        self.hostName = data['Host Name'];
+        self.version = data['Version'];
     }, function (reason) {
         console.log(reason);        
-        $scope.hostName = '-unknown-';
+        self.hostName = '-unknown-';
     }).finally(function () {
-        $scope.loading = false;
+        self.loading = false;
     });
+
+    // console.log($scope);
 });
 
 softEtherAdminApp.controller('SidebarController', function ($scope, $location) {
-    $scope.navData = [
+    var self = this;
+    self.navData = [
         {
             isActive: false,
             path: 'dashboard',
@@ -60,29 +64,73 @@ softEtherAdminApp.controller('SidebarController', function ($scope, $location) {
 
     $scope.$on('$locationChangeSuccess', function(event) {
         var path = $location.path();
-        for (let i = 0; i < $scope.navData.length; i++) {
-            if (path.startsWith('/' + $scope.navData[i].path)) {
-                $scope.navData[i].isActive = true;
+        for (let i = 0; i < self.navData.length; i++) {
+            if (path.startsWith('/' + self.navData[i].path)) {
+                self.navData[i].isActive = true;
             }
             else {
-                $scope.navData[i].isActive = false;
+                self.navData[i].isActive = false;
             }
         }
     });
 });
+
 
 /*
  *          GENERIC COMPONENTS
  */
 
 softEtherAdminApp.component('loadingIndicator', {
-    templateUrl: 'loadingIndicator.html',
+    templateUrl: 'loadingIndicator.template.html',
     bindings: {
+        errorMessage: '<',
+        isLoading: '<'
+    },
+    controller: function () {
+        var ctrl = this;
+
+        // ctrl.$onInit = function () {
+        //     console.log('init');
+        // };
+
+        // ctrl.$onChanges = function (changes) { 
+        //     console.log('CHANGE! ' + ctrl.isLoading + ' - ' + ctrl.errorMessage);
+        // };
+
+    }/*,
+    controllerAs: 'ctrl'*/
+});
+
+softEtherAdminApp.component('infoCard', {
+    templateUrl: 'infoCard.template.html',
+    bindings: {
+        size: '@',
+        icon: '@',
+        title: '@',
+        category: '@',
+        value: '<',
         errorMessage: '<',
         loading: '<'
     },
     controller: function () {
-        // var ctrl = this;
-        // console.log(ctrl.loading + ' - ' + ctrl.errorMessage);        
+        var ctrl = this;
+    }
+});
+
+softEtherAdminApp.component('keyValueTable', {
+    templateUrl: 'keyValueTable.template.html',
+    bindings: {
+        data: '<',
+        headerKey: '@',
+        headerValue: '@',
+        title: '@',
+        category: '@',
+        icon: '@',
+        size: '@',
+        errorMessage: '<',
+        loading: '<'
+    },
+    controller: function () {
+        var ctrl = this;
     }
 });

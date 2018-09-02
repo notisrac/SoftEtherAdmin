@@ -1,0 +1,12 @@
+<div class="col-md-{{$ctrl.size}}">
+    <div class="card">
+        <div class="header">
+            <h4 class="title"><i class="{{$ctrl.icon}}"></i>&nbsp;{{$ctrl.title}}</h4>
+            <p class="category">{{$ctrl.category}}</p>
+        </div>
+        <div class="content">
+            <loading-indicator is-loading="$ctrl.loading" error-message="$ctrl.errorMessage"></loading-indicator>
+            <h1 ng-hide="$ctrl.errorMessage || $ctrl.loading" style="text-align: right; margin: 0;">{{$ctrl.value}}</h1>
+        </div>
+    </div>
+</div>

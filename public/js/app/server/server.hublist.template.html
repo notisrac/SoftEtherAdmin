@@ -4,7 +4,7 @@
         <p class="category">The hubs registered in this server</p>
     </div>
     <div class="content table-responsive table-full-width">
-        <loading-indicator loading="$ctrl.loading" errorMessage="$ctrl.errorMessage"></loading-indicator>
+        <loading-indicator is-loading="$ctrl.loading" error-message="$ctrl.errorMessage"></loading-indicator>
         <table class="table table-hover table-striped" ng-hide="$ctrl.errorMessage || $ctrl.loading">
             <thead>
                 <th>Virtual Hub Name</th>

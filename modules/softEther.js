@@ -25,13 +25,13 @@ const csvParseOptions_object = {
 
 var softEther = {
     about: function () {
-        return this.executeCommand('About');
+        return this.executeHeaderlessCommand('About');
     },
     serverInfoGet: function () {
         return this.executeCSVCommand('ServerInfoGet', null, null, 0, 0, csvParseOptions_flat, true);
     },
     serverStatusGet: function () {
-        return this.executeCSVCommand('ServerStatusGet');
+        return this.executeCSVCommand('ServerStatusGet', null, null, 0, 0, csvParseOptions_flat, true);
     },
     listenerList: function () {
         return this.executeCSVCommand('ListenerList');
@@ -55,7 +55,7 @@ var softEther = {
         return this.executeCSVCommand('BridgeList');
     },
     caps: function () {
-        return this.executeCSVCommand('Caps');
+        return this.executeCSVCommand('Caps', null, null, 0, 0, csvParseOptions_flat, true);
     },
     configGet: function () {
         return this.executeHeaderlessCommand('ConfigGet', null, null, 2, 0);
@@ -79,7 +79,7 @@ var softEther = {
         return this.executeCSVCommand('Hub', name);
     },
     check: function () {
-        return this.executeCSVCommand('Check');
+        return this.executeHeaderlessCommand('Check');
     },
     etherIpClientList: function () {
         return this.executeCSVCommand('EtherIpClientList');

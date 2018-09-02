@@ -26,8 +26,8 @@ router.get('/hubList', cache(10), function (req, res) {
     handleResponse(softEther.hubList(), res);
 });
 
-router.get('/clientList', cache(10), function (req, res) {
-    handleResponse(softEther.etherIpClientList(), res);
+router.get('/caps', cache(10), function (req, res) {
+    handleResponse(softEther.caps(), res);
 });
 
 router.get('/connectionList', cache(10), function (req, res) {

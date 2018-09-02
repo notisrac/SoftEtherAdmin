@@ -1,0 +1,24 @@
+<div class="col-md-{{$ctrl.size}}">
+    <div class="card">
+        <div class="header">
+            <h4 class="title"><i class="{{$ctrl.icon}}"></i>&nbsp;{{$ctrl.title}}</h4>
+            <p class="category">{{$ctrl.category}}</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <loading-indicator is-loading="$ctrl.loading" error-message="$ctrl.errorMessage"></loading-indicator>
+            <table class="table table-hover table-striped" ng-hide="$ctrl.errorMessage || $ctrl.loading">
+                <thead>
+                    <th>{{$ctrl.headerKey}}</th>
+                    <th>{{$ctrl.headerValue}}</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, value) in $ctrl.data">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

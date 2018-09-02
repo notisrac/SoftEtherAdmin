@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="configController">
+<div class="container-fluid" ng-controller="configController as cc">
     <div class="row">
 
         <!-- CONFIG -->
@@ -12,8 +12,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <loading-indicator loading="loading" errorMessage="errorMessage"></loading-indicator>
-                                <textarea rows="30" class="form-control" placeholder="Server config" ng-hide="errorMessage || loading">{{serverConfig}}</textarea>
+                                <loading-indicator is-loading="cc.loading" error-message="cc.errorMessage"></loading-indicator>
+                                <textarea rows="30" class="form-control" placeholder="Server config" ng-hide="cc.errorMessage || cc.loading">{{cc.serverConfig}}</textarea>
                             </div>
                         </div>
                     </div>
