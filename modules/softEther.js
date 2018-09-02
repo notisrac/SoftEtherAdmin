@@ -24,6 +24,9 @@ const csvParseOptions_object = {
 
 
 var softEther = {
+    /*
+     *   SERVER COMMANDS
+     */
     about: function () {
         return this.executeHeaderlessCommand('About');
     },
@@ -99,6 +102,20 @@ var softEther = {
     vpnAzureGetStatus: function () {
         return this.executeCSVCommand('VpnAzureGetStatus');
     },
+
+    /*
+     *   HUB COMMANDS
+     */
+    hubStatus: function (name) {
+        return this.executeCSVCommand('StatusGet', null, name, 0, 0, csvParseOptions_flat, true);
+    },
+    hubUserList: function (name) {
+        return this.executeCSVCommand('UserList', null, name);
+    },
+
+    /*
+     *   HELPER FUNCTIONS
+     */
 
     flattenData: function (data) {
         var retData = {};
@@ -192,7 +209,8 @@ var softEther = {
         }
         // select the hub
         if (hubName) {
-            command += ' /HUB:' + hubName;
+            //command += ' /HUB:' + hubName; // this would require the hub password, and we only have the server pwd
+            command += ' /ADMINHUB:' + hubName;
         }
         // the command to execute on the server
         command += ' /CMD ' + softEtherCommand;
