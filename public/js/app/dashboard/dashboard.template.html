@@ -1,28 +1,28 @@
-<div class="container-fluid" ng-controller="dashboardController">
+<div class="container-fluid" ng-controller="dashboardController as dc">
     <div class="row">
 
         <!-- SERVER STATUS -->
 
-        <info-card size="2" icon="pe-7s-server" title="Sessions" category="Number of active sessions" value="numberOfSessions" errorMessage="errorMessage_status" loading="loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-server" title="Sessions" category="Number of active sessions" value="dc.numberOfSessions" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
 
-        <info-card size="2" icon="pe-7s-users" title="Users" category="Total number of users" value="numberOfUsers" errorMessage="errorMessage_status" loading="loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-users" title="Users" category="Total number of users" value="dc.numberOfUsers" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
 
-        <info-card size="2" icon="pe-7s-clock" title="Uptime" category="Time elapsed since the last start" value="uptime" errorMessage="errorMessage_status" loading="loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-clock" title="Uptime" category="Time elapsed since the last start" value="dc.uptime" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
 
-        <info-card size="3" icon="pe-7s-signal" title="Unicast traffic" category="Bytes transferred (sent/received)" value="unicastData" errorMessage="errorMessage_status" loading="loading_status"></info-card>
+        <info-card size="3" icon="pe-7s-signal" title="Unicast traffic" category="Bytes transferred (sent/received)" value="dc.unicastData" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
 
-        <info-card size="3" icon="pe-7s-signal" title="Broadcast traffic" category="Bytes transferred (sent/received)" value="broadcastData" errorMessage="errorMessage_status" loading="loading_status"></info-card>
+        <info-card size="3" icon="pe-7s-signal" title="Broadcast traffic" category="Bytes transferred (sent/received)" value="dc.broadcastData" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
 
         <!-- ROW -->
     </div>
 
 
     <div class="row">
-        <key-value-table data="statusData" header-key="Name" header-value="Value" title="Server status" category="Status of the SoftEther server" icon="pe-7s-info" size="6" error-message="errorMessage_status" loading="loading_status"></key-value-table>
+        <key-value-table data="statusData" header-key="Name" header-value="Value" title="Server status" category="Status of the SoftEther server" icon="pe-7s-info" size="6" error-message="dc.errorMessage_status" loading="dc.loading_status"></key-value-table>
 
-        <key-value-table data="infoData" header-key="Name" header-value="Value" title="Server version information" category="Information about the host server" icon="pe-7s-info" size="6" error-message="errorMessage_info" loading="loading_info"></key-value-table>
+        <key-value-table data="infoData" header-key="Name" header-value="Value" title="Server version information" category="Information about the host server" icon="pe-7s-info" size="6" error-message="dc.errorMessage_info" loading="dc.loading_info"></key-value-table>
 
-        <key-value-table data="capsData" header-key="Name" header-value="Value" title="Server Settings" category="Feature status" icon="pe-7s-config" size="6" error-message="errorMessage_caps" loading="loading_caps"></key-value-table>
+        <key-value-table data="capsData" header-key="Name" header-value="Value" title="Server Settings" category="Feature status" icon="pe-7s-config" size="6" error-message="dc.errorMessage_caps" loading="dc.loading_caps"></key-value-table>
 
     </div>
 </div>

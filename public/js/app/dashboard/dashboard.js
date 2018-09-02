@@ -12,12 +12,13 @@ module.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 module.controller('dashboardController', function ($scope, $http) {
-  $scope.loading_status = true;
-  $scope.errorMessage_status = null;
-  $scope.loading_info = true;
-  $scope.errorMessage_info = null;
-  $scope.loading_caps = true;
-  $scope.errorMessage_caps = null;
+  var self = this;
+  self.loading_status = true;
+  self.errorMessage_status = null;
+  self.loading_info = true;
+  self.errorMessage_info = null;
+  self.loading_caps = true;
+  self.errorMessage_caps = null;
 
   // get the server status
   $http.get('api/server/status').then(function (response) {
@@ -64,9 +65,9 @@ module.controller('dashboardController', function ($scope, $http) {
 
   }, function (reason) {
     console.log(reason);
-    $scope.errorMessage_status = reason.statusText;
+    self.errorMessage_status = reason.statusText;
   }).finally(function () {
-    $scope.loading_status = false;
+    self.loading_status = false;
   });
 
 
@@ -77,9 +78,9 @@ module.controller('dashboardController', function ($scope, $http) {
 
   }, function (reason) {
     console.log(reason);
-    $scope.errorMessage_info = reason.statusText;
+    self.errorMessage_info = reason.statusText;
   }).finally(function () {
-    $scope.loading_info = false;
+    self.loading_info = false;
   });
 
 
@@ -90,12 +91,12 @@ module.controller('dashboardController', function ($scope, $http) {
 
   }, function (reason) {
     console.log(reason);
-    $scope.errorMessage_caps = reason.statusText;
+    self.errorMessage_caps = reason.statusText;
   }).finally(function () {
-    $scope.loading_caps = false;
+    self.loading_caps = false;
   });
 
-  // console.log($scope);
+  // console.log(self);
 });
 
 function getUptime(startDateString) {
