@@ -1,5 +1,6 @@
 var exec = require('child-process-promise').exec;
 const parse = require('csv-parse');
+const parseSync = require('csv-parse/lib/sync');
 // the defult options: parse table headers
 const csvParseOptions = {
     columns: true,
@@ -114,79 +115,139 @@ var softEther = {
     },
 
     /*
-     *   HELPER FUNCTIONS
+     *   COMMON
      */
-
-    flattenData: function (data) {
-        var retData = {};
-        data.forEach(element => {
-            // console.log(element);
-            retData[element[0]] = element[1];
+    executeFile: function (fileName, hub = null, settings = {}) {
+        /*
+        settings format
+         {
+            StatusGet : {
+                csv: true,
+                flatten: true,
+                trimStart: 0,
+                trimEnd: 0
+            }
+        }
+        */
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            self.executeCommand(null, null, hub, true, fileName, 1, 0)
+                .then(function (result) {
+                    var retValue = {};
+                    var re = new RegExp('.*[\/\w]?>(.*)', 'gm');
+                    var matches = [];
+                    var m;
+                    while (m = re.exec(result)) {
+                        matches.push(m);
+                    }
+                    for (let i = 0; i < matches.length; i++) {
+                        // get the actual command
+                        const fullCommand = matches[i][0];
+                        const command = matches[i][1];
+                        // get the settings for this command
+                        var cmdSettings = settings[command];
+                        // get the data after the command
+                        var cmdLocation = matches[i].index + fullCommand.length + 1;
+                        var nextCmdLocation = result.length;
+                        if (matches[i + 1]) {
+                            nextCmdLocation = result.indexOf(matches[i + 1][0]) - 1;
+                        }
+                        var data = result.substring(cmdLocation, nextCmdLocation);
+                        // format the data according to the settings
+                        if (cmdSettings) {
+                            if (cmdSettings.trimStart) {
+                                data = self.trimStart(data, cmdSettings.trimStart);
+                            }
+                            if (cmdSettings.trimEnd) {
+                                data = self.trimEnd(data, cmdSettings.trimEnd);
+                            }
+                            if (cmdSettings.csv) {
+                                var parseOptions = csvParseOptions;
+                                if (cmdSettings.flatten) {
+                                    parseOptions = csvParseOptions_flat;
+                                }
+                                data = parseSync(data, parseOptions);
+                                if (cmdSettings.flatten) {
+                                    data = self.flattenData(data);
+                                }
+                            }
+                        }
+                        // add the data to the collection with the command name as the name
+                        retValue[command] = data;
+                    }
+                    resolve(retValue);
+                })
+                .catch(function (err) {
+                    reject(err);
+                });
         });
-        return retData;
     },
+
+    /*
+     *   COMMAND FUNCTIONS
+     */
 
     executeHeaderlessCommand: function (command, commandParams = null, hub = null, trimStartLines = 0, trimEndLines = 0) {
         // execute the command, with csv enabled
-        return this.executeCommand(command, commandParams, hub, true, trimStartLines, trimEndLines);
+        return this.executeCommand(command, commandParams, hub, true, null, trimStartLines, trimEndLines);
     },
 
     executeCSVCommand: function (command, commandParams = null, hub = null, trimStartLines = 0, trimEndLines = 0, parseOptions = csvParseOptions, flatten = false) {
         var self = this;
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             // execute the command, with csv enabled
-            self.executeCommand(command, commandParams, hub, true, trimStartLines, trimEndLines)
-            .then(function (result) {
-                // try to parse the resulting csv
-                parse(result, parseOptions, function (err, output) {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve((flatten)? self.flattenData(output) : output);
+            self.executeCommand(command, commandParams, hub, true, null, trimStartLines, trimEndLines)
+                .then(function (result) {
+                    // try to parse the resulting csv
+                    parse(result, parseOptions, function (err, output) {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve((flatten) ? self.flattenData(output) : output);
+                    });
+                })
+                .catch(function (err) {
+                    reject(err);
                 });
-            })
-            .catch(function (err) {
-                reject(err);
-            });
         });
     },
 
     // ./vpncmd  localhost:port /SERVER /PASSWORD:asd /HUB:VPN /CSV /CMD hublist
-    executeCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV, trimStartLines = 0, trimEndLines = 0) {
+    executeCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV, fileName, trimStartLines = 0, trimEndLines = 0) {
         var self = this;
-        var command = this.assembleCommand(softEtherCommand, softEtherCommandParams, hubName, enableCSV);
+        var command = this.assembleCommand(softEtherCommand, softEtherCommandParams, hubName, enableCSV, fileName);
         // TODO removeme
         console.log(command);
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             exec(command)
-            .then(function (result) {
-                var stdout = result.stdout;
-                var stderr = result.stderr;
-                console.log(stdout);
-                console.log(stderr);
-                if (stderr || stdout.startsWith('Error occurred.') ) {
-                    reject('Error while executing command "' + softEtherCommand + '": \r\n' + stderr + '\r\n' + stdout);
-                }
+                .then(function (result) {
+                    var stdout = result.stdout;
+                    var stderr = result.stderr;
+                    console.log(stdout);
+                    console.log(stderr);
+                    if (stderr || stdout.startsWith('Error occurred.')) {
+                        reject('Error while executing command "' + softEtherCommand + '": \r\n' + stderr + '\r\n' + stdout);
+                    }
 
-                if (trimStartLines > 0) {
-                    stdout = self.trimStart(stdout, trimStartLines);
-                }
-                if (trimEndLines > 0) {
-                    stdout = self.trimEnd(stdout, trimEndLines);
-                }
+                    if (trimStartLines > 0) {
+                        stdout = self.trimStart(stdout, trimStartLines);
+                    }
+                    if (trimEndLines > 0) {
+                        stdout = self.trimEnd(stdout, trimEndLines);
+                    }
 
-                resolve(stdout);
-            })
-            .catch(function (err) {
-                console.log(err);
-                reject('Error while executing command "' + softEtherCommand + '": \r\n' + err);
-            });
+                    resolve(stdout);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    reject('Error while executing command "' + softEtherCommand + '": \r\n' + err);
+                });
         });
     },
 
-    assembleCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV) {
+    assembleCommand: function (softEtherCommand, softEtherCommandParams, hubName, enableCSV, fileName) {
         var command = '';
         // vpncmd executeable
         command += '"' + global.config.get('softEther.vpncmdPath') + '"';
@@ -212,13 +273,32 @@ var softEther = {
             //command += ' /HUB:' + hubName; // this would require the hub password, and we only have the server pwd
             command += ' /ADMINHUB:' + hubName;
         }
-        // the command to execute on the server
-        command += ' /CMD ' + softEtherCommand;
-        if (softEtherCommandParams) {
-            command += ' ' + softEtherCommandParams;
+        // if the filename is specified
+        if (fileName) {
+            command += ' /IN:"' + fileName + '"';
+        }
+        else {
+            // the command to execute on the server
+            command += ' /CMD ' + softEtherCommand;
+            if (softEtherCommandParams) {
+                command += ' ' + softEtherCommandParams;
+            }
         }
 
         return command;
+    },
+
+    /*
+     *   HELPER FUNCTIONS
+     */
+
+    flattenData: function (data) {
+        var retData = {};
+        data.forEach(element => {
+            // console.log(element);
+            retData[element[0]] = element[1];
+        });
+        return retData;
     },
 
     trimStart: function (data, count) {
@@ -233,7 +313,7 @@ var softEther = {
     trimEnd: function (data, count) {
         if (count > 0) {
             for (let i = 0; i < count; i++) {
-                data = data.substring(data.lastIndexOf("\n") + 1, -1 );
+                data = data.substring(data.lastIndexOf("\n") + 1, -1);
             }
         }
 
