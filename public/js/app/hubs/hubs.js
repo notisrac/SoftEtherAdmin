@@ -13,11 +13,19 @@ module.config(['$routeProvider', function ($routeProvider) {
 
 module.controller('hubsController', function ($scope, $http) {
   var self = this;
+  self.hubName = null;
+
+  self.showDetails = function (hubName) {
+    self.hubName = hubName;
+    console.log(hubName);    
+  }
 });
 
 module.component('hubList', {
   templateUrl: 'js/app/hubs/hubs.hublist.template.html',
-  bindings: {},
+  bindings: {
+    callback: '<'
+  },
   controller: function ($http) {
     var ctrl = this;
     ctrl.loading = true;

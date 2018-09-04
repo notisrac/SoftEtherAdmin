@@ -1,9 +1,34 @@
-<div class="container-fluid" ng-controller="dashboardController">
+<div class="container-fluid" ng-controller="hubsController as hc">
     <div class="row">
         <!-- HUBS -->
         <div class="col-md-12">
-            <hub-list></hub-list>
+            <hub-list callback="hc.showDetails"></hub-list>
         </div>
         <!-- ROW -->
     </div>
+
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="header">
+                    <h4 class="title">XXXX hub's details</h4>
+                    <p class="category">Details of the selected hub</p>
+                </div>
+                <div class="content">
+                    <span><i>Select a hub from the list above!</i></span>
+                </div>
+           </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="content">
+                    <span><i>Select a hub from the list above!</i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
