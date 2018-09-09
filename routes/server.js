@@ -38,6 +38,10 @@ router.get('/config', cache(10), function (req, res) {
     handleResponse(softEther.configGet(), res);
 });
 
+router.get('/dashboardData', cache(10), function (req, res) {
+    handleResponse(softEther.executeFile('scripts/vpncmd_serverinfo.txt', null, { ServerInfoGet: { csv: true, flatten: true }, ServerStatusGet: { csv: true, flatten: true } }), res);
+});
+
 function handleResponse(promise, res) {
     promise
     .then(function (data) {
