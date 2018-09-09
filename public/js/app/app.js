@@ -115,6 +115,7 @@ softEtherAdminApp.component('infoCard', {
     },
     controller: function () {
         var ctrl = this;
+        // console.log('infoCard');
     }
 });
 
@@ -133,5 +134,26 @@ softEtherAdminApp.component('keyValueTable', {
     },
     controller: function () {
         var ctrl = this;
+        // console.log('keyValueTable');
+    }
+});
+
+softEtherAdminApp.component('autoDataTable', {
+    templateUrl: 'autoDataTable.template.html',
+    bindings: {
+        data: '<',
+        header: '<',
+        title: '@',
+        category: '@',
+        icon: '@',
+        size: '@',
+        errorMessage: '<',
+        loading: '<',
+        reloadCallback: '<'
+    },
+    controller: function () {
+        var ctrl = this;
+        //ctrl.allowReload = false;
+        // console.log('autoDataTable');
     }
 });

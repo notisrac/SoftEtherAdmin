@@ -1,0 +1,34 @@
+<div class="col-md-{{$ctrl.size}}">
+    <div class="card">
+        <div class="header">
+            <h4 class="title"><i class="{{$ctrl.icon}}"></i>&nbsp;{{$ctrl.title}}</h4>
+            <p class="category">{{$ctrl.category}}</p>
+        </div>
+        <div class="content table-responsive table-full-width">
+            <loading-indicator is-loading="$ctrl.loading" error-message="$ctrl.errorMessage"></loading-indicator>
+            <table class="table table-hover table-striped" ng-hide="$ctrl.errorMessage || $ctrl.loading || !$ctrl.data.length">
+                <thead>
+                    <th ng-repeat="item in $ctrl.header">{{item}}</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in $ctrl.data">
+                        <td ng-repeat="item in row">{{item}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="content" ng-show="!$ctrl.data.length && !$ctrl.loading">
+                <p class="text-muted">No data</p>
+            </div>
+            <div class="content" ng-show="$ctrl.reloadCallback && !$ctrl.loading">
+                <div class="footer">
+                    <hr>
+                    <div class="stats">
+                        <a href="" ng-click="$ctrl.reloadCallback(); $event.stopPropagation();">
+                            <i class="pe pe-7s-refresh"></i> Refresh
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
