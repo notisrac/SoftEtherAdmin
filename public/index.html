@@ -37,6 +37,7 @@
     </style>
 
     <!-- App -->
+    <script src="js/app/utils.js"></script>
     <script src="js/app/app.js"></script>
     <script src="js/app/dashboard/dashboard.js"></script>
     <script src="js/app/server/server.js"></script>
@@ -84,6 +85,14 @@
                             <loading-indicator is-loading="hc.loading" error-message="hc.errorMessage"></loading-indicator>
                             {{hc.hostName}}
                         </span>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <p class="text-muted" style="margin-top:21px; font-size:smaller;">{{hc.version}}</p>
+                
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

@@ -7,19 +7,18 @@
         <loading-indicator is-loading="$ctrl.loading" error-message="$ctrl.errorMessage"></loading-indicator>
         <table class="table table-hover table-striped" ng-hide="$ctrl.errorMessage || $ctrl.loading">
             <thead>
-                <th>Virtual Hub Name</th>
+                <th>Name</th>
                 <th>Status</th>
                 <th>Type</th>
                 <th>Users</th>
                 <th>Groups</th>
                 <th>Sessions</th>
-                <th>MAC Tables</th>
-                <th>IP Tables</th>
+                <th>MACs</th>
+                <th>IPs</th>
                 <th>Num Logins</th>
                 <th>Last Login</th>
-                <th>Last Communication</th>
-                <th>Transfer Bytes</th>
-                <th>Transfer Packets</th>
+                <th>Last Comms</th>
+                <th>Data</th>
                 <th>&nbsp;</th>
             </thead>
             <tbody>
@@ -35,8 +34,7 @@
                     <td>{{item["Num Logins"]}}</td>
                     <td>{{item["Last Login"]}}</td>
                     <td>{{item["Last Communication"]}}</td>
-                    <td>{{item["Transfer Bytes"]}}</td>
-                    <td>{{item["Transfer Packets"]}}</td>
+                    <td>{{item["transferredData"]}}</td>
                     <td><button type="button" class="btn btn-info btn-fill pull-right" ng-click="$ctrl.callback(item['Virtual Hub Name'])">Details</button></td>
                 </tr>
             </tbody>

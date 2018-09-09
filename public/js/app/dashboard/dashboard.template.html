@@ -3,22 +3,22 @@
 
         <!-- SERVER STATUS -->
 
-        <info-card size="2" icon="pe-7s-server" title="Sessions" category="Number of active sessions" value="dc.numberOfSessions" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-server" title="Sessions" category="Number of active sessions" value="dc.numberOfSessions" error-message="dc.errorMessage" loading="dc.loading"></info-card>
 
-        <info-card size="2" icon="pe-7s-users" title="Users" category="Total number of users" value="dc.numberOfUsers" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-users" title="Users" category="Total number of users" value="dc.numberOfUsers" error-message="dc.errorMessage" loading="dc.loading"></info-card>
 
-        <info-card size="2" icon="pe-7s-clock" title="Uptime" category="Time elapsed since the last start" value="dc.uptime" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
+        <info-card size="2" icon="pe-7s-clock" title="Uptime" category="Time elapsed since the last start" value="dc.uptime" error-message="dc.errorMessage" loading="dc.loading"></info-card>
 
-        <info-card size="3" icon="pe-7s-signal" title="Unicast traffic" category="Bytes transferred (sent/received)" value="dc.unicastData" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
+        <info-card size="3" icon="pe-7s-signal" title="Unicast traffic" category="Bytes transferred (sent/received)" value="dc.unicastData" error-message="dc.errorMessage" loading="dc.loading"></info-card>
 
-        <info-card size="3" icon="pe-7s-signal" title="Broadcast traffic" category="Bytes transferred (sent/received)" value="dc.broadcastData" error-message="dc.errorMessage_status" loading="dc.loading_status"></info-card>
+        <info-card size="3" icon="pe-7s-signal" title="Broadcast traffic" category="Bytes transferred (sent/received)" value="dc.broadcastData" error-message="dc.errorMessage" loading="dc.loading"></info-card>
 
         <!-- ROW -->
     </div>
 
     <div class="row">
-        <key-value-table data="dc.statusData" header-key="Name" header-value="Value" title="Server status" category="Status of the SoftEther server" icon="pe-7s-info" size="6" error-message="dc.errorMessage_status" loading="dc.loading_status"></key-value-table>
+        <key-value-table data="dc.statusData" header-key="Name" header-value="Value" title="Server status" category="Status of the SoftEther server" icon="pe-7s-info" size="6" error-message="dc.errorMessage" loading="dc.loading"></key-value-table>
 
-        <key-value-table data="dc.infoData" header-key="Name" header-value="Value" title="Server version information" category="Information about the host server" icon="pe-7s-info" size="6" error-message="dc.errorMessage_info" loading="dc.loading_info"></key-value-table>
+        <key-value-table data="dc.infoData" header-key="Name" header-value="Value" title="Server version information" category="Information about the host server" icon="pe-7s-info" size="6" error-message="dc.errorMessage" loading="dc.loading"></key-value-table>
     </div>
 </div>

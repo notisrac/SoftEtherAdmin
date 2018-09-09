@@ -1,0 +1,80 @@
+<div class="col-md-12">
+    <div class="card card-plain" ng-hide="$ctrl.hasData || $ctrl.loading">
+        <div class="content">
+            <span><i>Select a hub from the list above!</i></span>
+        </div>
+    </div>
+    <div class="card card-plain" ng-show="$ctrl.hasData || $ctrl.loading">
+        <div class="header">
+            <h4 class="title">{{$ctrl.hubName}}</h4>
+            <p class="category">Hub details</p>
+        </div>
+    </div>
+
+    <!-- SESSION LIST -->
+    <auto-data-table
+        ng-show="$ctrl.hasData || $ctrl.loading" 
+        data="$ctrl.sessionListData" 
+        header="$ctrl.sessionListHeaders" 
+        title="Sessions" 
+        category="Active sessions" 
+        icon="pe-7s-info" 
+        size="12" 
+        error-message="$ctrl.errorMessage || $ctrl.errorMessage_session" 
+        loading="$ctrl.loading || $ctrl.loading_session"
+        reload-callback="$ctrl.reloadSessionList"></auto-data-table>
+
+    <!-- IP LIST -->
+
+    <!-- MAC LIST -->
+
+    <!-- HUB STATUS -->
+    <key-value-table 
+        ng-show="$ctrl.hasData || $ctrl.loading" 
+        data="$ctrl.statusData" 
+        header-key="Name" 
+        header-value="Value" 
+        title="Hub status" 
+        category="Status of the virtual hub" 
+        icon="pe-7s-info" 
+        size="6" 
+        error-message="$ctrl.errorMessage" 
+        loading="$ctrl.loading"></key-value-table>
+
+    <!-- ACCESS LIST -->
+    <auto-data-table
+        ng-show="$ctrl.hasData || $ctrl.loading" 
+        data="$ctrl.accessListData" 
+        header="$ctrl.accessListHeaders" 
+        title="Access rules" 
+        category="Access rules of the virtual hub" 
+        icon="pe-7s-info" 
+        size="12" 
+        error-message="$ctrl.errorMessage" 
+        loading="$ctrl.loading"></auto-data-table>
+
+    <!-- USER LIST -->
+    <auto-data-table
+        ng-show="$ctrl.hasData || $ctrl.loading" 
+        data="$ctrl.userListData" 
+        header="$ctrl.userListHeaders" 
+        title="Users" 
+        category="Users registered on this virtual hub" 
+        icon="pe-7s-info" 
+        size="12" 
+        error-message="$ctrl.errorMessage" 
+        loading="$ctrl.loading"></auto-data-table>
+
+    <!-- GROUP LIST -->
+    <auto-data-table
+        ng-show="$ctrl.hasData || $ctrl.loading" 
+        data="$ctrl.groupListData" 
+        header="$ctrl.groupListHeaders" 
+        title="Groups" 
+        category="Groups registered on this virtual hub" 
+        icon="pe-7s-info" 
+        size="12" 
+        error-message="$ctrl.errorMessage" 
+        loading="$ctrl.loading"></auto-data-table>
+
+</div>
