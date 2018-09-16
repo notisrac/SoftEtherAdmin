@@ -20,6 +20,12 @@ cd /srv
 sudo git clone https://github.com/notisrac/SoftEtherAdmin.git
 ```
 
+### Restoring npm packages
+```shell
+cd /srv/SoftEtherAdmin
+sudo npm install
+```
+
 ### Downloading
 Note: unzip should be installed on your system!
 ```shell
