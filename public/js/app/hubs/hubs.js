@@ -1,31 +1,37 @@
-"use strict";
+'use strict';
 
-var module = angular.module("hubsModule", ["ngRoute"]);
+var module = angular.module('hubsModule', ['ngRoute']);
 
 module.config([
-  "$routeProvider",
+  '$routeProvider',
   function ($routeProvider) {
-    $routeProvider.when("/hubs", {
-      templateUrl: "js/app/hubs/hubs.template.html",
-      controller: "hubsController"
+    $routeProvider
+    .when('/hubs', {
+      templateUrl: 'js/app/hubs/hubs.template.html',
+      controller: 'hubsController'
+    })
+    .when('/hubs/:hubName', {
+      templateUrl: 'js/app/hubs/hubs.template.html',
+      controller: 'hubsController'
     });
   }
 ]);
 
-module.controller("hubsController", function ($scope, $http, $location) {
+module.controller('hubsController', function ($scope, $http, $location, $routeParams) {
   var self = this;
-  self.hubName = null;
+  self.hubName = $routeParams.hubName;
 
   self.showDetails = function (hubName) {
-    self.hubName = hubName;
-    console.log('Selected hub: ' + hubName);
+    $location.path('hubs/' + hubName);
+    //self.hubName = hubName;
+    //console.log('Selected hub: ' + hubName);
   };
 });
 
-module.component("hubList", {
-  templateUrl: "js/app/hubs/hubs.hublist.template.html",
+module.component('hubList', {
+  templateUrl: 'js/app/hubs/hubs.hublist.template.html',
   bindings: {
-    callback: "<"
+    callback: '<'
   },
   controller: function ($http) {
     var ctrl = this;
@@ -33,13 +39,13 @@ module.component("hubList", {
     ctrl.errorMessage = null;
 
     $http
-      .get("api/server/hublist")
+      .get('api/server/hublist')
       .then(
         function (response) {
           ctrl.data = response.data;
           // convert all the Transfer Bytes to the largest unit
           for (let i = 0; i < ctrl.data.length; i++) {
-            ctrl.data[i]["transferredData"] = convertToLargestDataUnit(ctrl.data[i]["Transfer Bytes"]);
+            ctrl.data[i]['transferredData'] = convertToLargestDataUnit(ctrl.data[i]['Transfer Bytes']);
           }
         },
         function (reason) {
@@ -53,20 +59,19 @@ module.component("hubList", {
   }
 });
 
-module.component("hubDetails", {
-  templateUrl: "js/app/hubs/hubs.hubdetails.template.html",
+module.component('hubDetails', {
+  templateUrl: 'js/app/hubs/hubs.hubdetails.template.html',
   bindings: {
-    hubName: "<"
+    $router: '<',
+    hubName: '<'
   },
   controller: function ($http) {
     var ctrl = this;
 
     // handle incoming hubname
     ctrl.$onChanges = function (changes) {
-      // console.log("CHANGE! " + ctrl.hubName);
-      // console.log(changes);
       if (!ctrl.hubName) {
-        console.log('hubName is not defined!');
+        // console.log('hubName is not defined!');
         return;
       }
 
@@ -77,23 +82,23 @@ module.component("hubDetails", {
       ctrl.hasData = false;
 
       $http
-        .get("api/hub/" + ctrl.hubName + "/hubData")
+        .get('api/hub/' + ctrl.hubName + '/hubData')
         .then(
           function (response) {
-            ctrl.statusData = response.data["StatusGet"];
-            ctrl.accessListData = response.data["AccessList"];
+            ctrl.statusData = response.data['StatusGet'];
+            ctrl.accessListData = response.data['AccessList'];
             ctrl.accessListHeaders = getArrayHeaders(ctrl.accessListData);
 
-            ctrl.userListData = response.data["UserList"];
+            ctrl.userListData = response.data['UserList'];
             ctrl.userListHeaders = getArrayHeaders(ctrl.userListData);
 
-            ctrl.groupListData = response.data["GroupList"];
+            ctrl.groupListData = response.data['GroupList'];
             ctrl.groupListHeaders = getArrayHeaders(ctrl.groupListData);
 
-            ctrl.macTableData = response.data["MacTable"];
-            ctrl.ipTableData = response.data["IpTable"];
+            ctrl.macTableData = response.data['MacTable'];
+            ctrl.ipTableData = response.data['IpTable'];
 
-            ctrl.sessionListData = response.data["SessionList"];
+            ctrl.sessionListData = response.data['SessionList'];
             // merge the ip and the mac address into the session list
             mergeSessionData(ctrl);
             ctrl.sessionListHeaders = getArrayHeaders(ctrl.sessionListData);
@@ -115,12 +120,12 @@ module.component("hubDetails", {
     ctrl.reloadSessionList = function () {
       ctrl.loading_session = true;
       $http
-        .get("api/hub/" + ctrl.hubName + "/sessionData")
+        .get('api/hub/' + ctrl.hubName + '/sessionData')
         .then(
           function (response) {
-            ctrl.macTableData = response.data["MacTable"];
-            ctrl.ipTableData = response.data["IpTable"];
-            ctrl.sessionListData = response.data["SessionList"];
+            ctrl.macTableData = response.data['MacTable'];
+            ctrl.ipTableData = response.data['IpTable'];
+            ctrl.sessionListData = response.data['SessionList'];
             // merge the ip and the mac address into the session list
             mergeSessionData(ctrl);
             ctrl.sessionListHeaders = getArrayHeaders(ctrl.sessionListData);

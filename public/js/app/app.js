@@ -10,6 +10,7 @@ var softEtherAdminApp = angular.module('softEtherAdminApp', [
 
 softEtherAdminApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
+        $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
 
         $routeProvider.otherwise({redirectTo: '/dashboard'});
@@ -82,7 +83,7 @@ softEtherAdminApp.controller('SidebarController', function ($scope, $location) {
  */
 
 softEtherAdminApp.component('loadingIndicator', {
-    templateUrl: 'loadingIndicator.template.html',
+    templateUrl: 'js/app/common/loadingIndicator.template.html',
     bindings: {
         errorMessage: '<',
         isLoading: '<'
@@ -103,7 +104,7 @@ softEtherAdminApp.component('loadingIndicator', {
 });
 
 softEtherAdminApp.component('infoCard', {
-    templateUrl: 'infoCard.template.html',
+    templateUrl: 'js/app/common/infoCard.template.html',
     bindings: {
         size: '@',
         icon: '@',
@@ -120,7 +121,7 @@ softEtherAdminApp.component('infoCard', {
 });
 
 softEtherAdminApp.component('keyValueTable', {
-    templateUrl: 'keyValueTable.template.html',
+    templateUrl: 'js/app/common/keyValueTable.template.html',
     bindings: {
         data: '<',
         headerKey: '@',
@@ -139,7 +140,7 @@ softEtherAdminApp.component('keyValueTable', {
 });
 
 softEtherAdminApp.component('autoDataTable', {
-    templateUrl: 'autoDataTable.template.html',
+    templateUrl: 'js/app/common/autoDataTable.template.html',
     bindings: {
         data: '<',
         header: '<',

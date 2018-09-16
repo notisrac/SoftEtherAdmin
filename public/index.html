@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <link rel="icon" type="image/png" href="/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.js"></script>
@@ -19,22 +19,24 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Animation library for notifications   -->
-    <link href="css/animate.min.css" rel="stylesheet" />
+    <link href="/css/animate.min.css" rel="stylesheet" />
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
+    <link href="/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <style>
         /* this is to fix the the every other row has a top border issue */
         .table > tbody > tr > td {
             border-top: 0px;
         }
     </style>
+
+    <base href="/">
 
     <!-- App -->
     <script src="js/app/utils.js"></script>
@@ -59,14 +61,14 @@
 
             <div class="sidebar-wrapper" ng-controller="SidebarController as sc">
                 <div class="logo">
-                    <a href="index.html" class="simple-text">
+                    <a href="/" class="simple-text">
                         SoftEther Admin
                     </a>
                 </div>
                 <!-- NAV BAR -->
                 <ul class="nav">
                     <li ng-repeat="item in sc.navData" ng-class="{active: item.isActive}">
-                        <a href="#!/{{item.path}}">
+                        <a href="/{{item.path}}">
                             <i class="{{item.icon}}"></i>
                             <p>{{item.text}}</p>
                         </a>

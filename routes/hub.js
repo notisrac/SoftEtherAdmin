@@ -33,6 +33,11 @@ router.get('/:hubName/sessionData', cache(10), function (req, res) {
     }), res);
 });
 
+// throw a not found for unknown commands
+router.use('/*', function(req, res, next) {
+    res.sendStatus(404);
+});
+
 function getHubName(req) {
     return req.params['hubName'];
 }

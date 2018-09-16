@@ -42,6 +42,11 @@ router.get('/dashboardData', cache(10), function (req, res) {
     handleResponse(softEther.executeFile('scripts/vpncmd_serverinfo.txt', null, { ServerInfoGet: { csv: true, flatten: true }, ServerStatusGet: { csv: true, flatten: true } }), res);
 });
 
+// throw a not found for unknown commands
+router.use('/*', function(req, res, next) {
+    res.sendStatus(404);
+});
+
 function handleResponse(promise, res) {
     promise
     .then(function (data) {
