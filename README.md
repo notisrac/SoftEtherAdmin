@@ -20,12 +20,6 @@ cd /srv
 sudo git clone https://github.com/notisrac/SoftEtherAdmin.git
 ```
 
-### Restoring npm packages
-```shell
-cd /srv/SoftEtherAdmin
-sudo npm install
-```
-
 ### Downloading
 Note: unzip should be installed on your system!
 ```shell
@@ -33,9 +27,15 @@ wget -O SoftEtherAdmin.zip https://github.com/notisrac/SoftEtherAdmin/archive/ma
 sudo unzip SoftEtherAdmin.zip -d /srv/SoftEtherAdmin
 ```
 
+## Restoring npm packages
+```shell
+cd /srv/SoftEtherAdmin
+sudo npm install
+```
+
 ### Web server
 For serving the app through a web server, all you need to do is, configure the web server as a reverse proxy pointing to the application's port.
-*nginx example*:
+**nginx example**:
 ```
 server {
         listen 80;
@@ -130,10 +130,12 @@ pm2 monit
 
 # TODO
  - [ ] Add logging (use [winston](https://www.npmjs.com/package/winston))
+ - [ ] The second (third, etc.) api calls for the same resource should wait for the first one to finish
  - [ ] Display more information about the server and the hubs (ex.: ports, openVPN status, etc.)
  - [ ] Make server logs downloadable
  - [ ] Add functionality to modify settings of the server
  - [ ] Extract the softEther.js file into a standalone module once it is done
+ - [ ] Make it a bit more colorful by adding SoftEther's icons (?)
  - [ ] User management??? (not quite sure, this is needed)
 
 # How to contribute
