@@ -35,7 +35,4 @@ app.listen(serverPort);
 console.log('Server listening on port: ' + serverPort);
 
 
-/// https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
-// DONE add caching of vpncmd calls https://www.npmjs.com/package/memory-cache
 // TODO add logging (ex.: winston) https://www.npmjs.com/package/winston
-// DONE find a ui design: https://github.com/creativetimofficial/light-bootstrap-dashboard
