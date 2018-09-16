@@ -23,4 +23,9 @@ router.use('/js', function(req, res, next) {
     res.sendStatus(404);
 });
 
+router.use('/app', express.static(path.join(__dirname, '../public/app')));
+router.use('/app', function(req, res, next) {
+    res.sendStatus(404);
+});
+
 module.exports = router;

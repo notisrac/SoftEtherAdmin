@@ -6,7 +6,7 @@ var module = angular.module('serverModule', [
 
 module.config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/server', {
-    templateUrl: 'js/app/server/server.template.html',
+    templateUrl: 'app/server/server.template.html',
     controller: 'ServerController'
   });
 }])
@@ -30,7 +30,7 @@ module.controller('ServerController', function ($scope, $http) {
 });
 
 module.component('connectionsList', {
-  templateUrl: 'js/app/server/server.connections.template.html',
+  templateUrl: 'app/server/server.connections.template.html',
   bindings: {},
   controller: function ($http) {
     var ctrl = this;

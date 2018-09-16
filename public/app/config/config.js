@@ -6,7 +6,7 @@ angular.module('configModule', [
 
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/config', {
-      templateUrl: 'js/app/config/config.template.html',
+      templateUrl: 'app/config/config.template.html',
       controller: 'configController'
     });
   }])

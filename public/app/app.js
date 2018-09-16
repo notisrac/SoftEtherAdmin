@@ -83,7 +83,7 @@ softEtherAdminApp.controller('SidebarController', function ($scope, $location) {
  */
 
 softEtherAdminApp.component('loadingIndicator', {
-    templateUrl: 'js/app/common/loadingIndicator.template.html',
+    templateUrl: 'app/common/loadingIndicator.template.html',
     bindings: {
         errorMessage: '<',
         isLoading: '<'
@@ -104,7 +104,7 @@ softEtherAdminApp.component('loadingIndicator', {
 });
 
 softEtherAdminApp.component('infoCard', {
-    templateUrl: 'js/app/common/infoCard.template.html',
+    templateUrl: 'app/common/infoCard.template.html',
     bindings: {
         size: '@',
         icon: '@',
@@ -121,7 +121,7 @@ softEtherAdminApp.component('infoCard', {
 });
 
 softEtherAdminApp.component('keyValueTable', {
-    templateUrl: 'js/app/common/keyValueTable.template.html',
+    templateUrl: 'app/common/keyValueTable.template.html',
     bindings: {
         data: '<',
         headerKey: '@',
@@ -140,7 +140,7 @@ softEtherAdminApp.component('keyValueTable', {
 });
 
 softEtherAdminApp.component('autoDataTable', {
-    templateUrl: 'js/app/common/autoDataTable.template.html',
+    templateUrl: 'app/common/autoDataTable.template.html',
     bindings: {
         data: '<',
         header: '<',

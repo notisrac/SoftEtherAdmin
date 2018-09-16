@@ -7,11 +7,11 @@ module.config([
   function ($routeProvider) {
     $routeProvider
     .when('/hubs', {
-      templateUrl: 'js/app/hubs/hubs.template.html',
+      templateUrl: 'app/hubs/hubs.template.html',
       controller: 'hubsController'
     })
     .when('/hubs/:hubName', {
-      templateUrl: 'js/app/hubs/hubs.template.html',
+      templateUrl: 'app/hubs/hubs.template.html',
       controller: 'hubsController'
     });
   }
@@ -29,7 +29,7 @@ module.controller('hubsController', function ($scope, $http, $location, $routePa
 });
 
 module.component('hubList', {
-  templateUrl: 'js/app/hubs/hubs.hublist.template.html',
+  templateUrl: 'app/hubs/hubs.hublist.template.html',
   bindings: {
     callback: '<'
   },
@@ -60,7 +60,7 @@ module.component('hubList', {
 });
 
 module.component('hubDetails', {
-  templateUrl: 'js/app/hubs/hubs.hubdetails.template.html',
+  templateUrl: 'app/hubs/hubs.hubdetails.template.html',
   bindings: {
     $router: '<',
     hubName: '<'
