@@ -1,5 +1,4 @@
 public/css/* linguist-vendored
 bootstrap.min.css linguist-vendored=false
 public/js/* linguist-vendored
-bootstrap.min.js linguist-vendored=false
-jquery.*.min.js linguist-vendored=false
+*.min.js linguist-vendored=false
