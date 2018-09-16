@@ -161,6 +161,14 @@ function mergeSessionData(ctrl) {
     for (let j = 0; j < ctrl.ipTableData.length; j++) {
       if (ctrl.ipTableData[j]['Session Name'] == name) {
         const address = ctrl.ipTableData[j]['IP Address'];
+
+        if (!ctrl.sessionListData[i].hasOwnProperty('IPv4 Address')) {
+          ctrl.sessionListData[i]['IPv4 Address'] = '-';
+        }
+        if (!ctrl.sessionListData[i].hasOwnProperty('IPv6 Address')) {
+          ctrl.sessionListData[i]['IPv6 Address'] = '-';
+        }
+
         if (address.includes(':')) {
           // ipv6
           ctrl.sessionListData[i]['IPv6 Address'] = address;
