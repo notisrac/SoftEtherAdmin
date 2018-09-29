@@ -5,33 +5,73 @@ The UI design is the [Light Bootstarp Dashboard theme](https://github.com/creati
 
 # Install
 ## Prerequisites
- * SoftEther (https://www.softether.org/)
+ * SoftEther vpncmd (https://www.softether.org/)
  * node.js v8+ (https://nodejs.org/en/)
  * [optional] pm2 (http://pm2.keymetrics.io/)
  * [optional] a web server (ex.: nginx)
 
-## Files
-First, you need to clone/download the files:
 
-### Cloning
-Note: git should be installed on your system!
+## Linux
+### Getting the files
+First, you need to clone/download the files:
 ```shell
+# GIT clone (Note: git should be installed on your system!)
 cd /srv
 sudo git clone https://github.com/notisrac/SoftEtherAdmin.git
-```
 
-### Downloading
-Note: unzip should be installed on your system!
-```shell
+## OR ##
+
+# Download (Note: unzip should be installed on your system!)
 wget -O SoftEtherAdmin.zip https://github.com/notisrac/SoftEtherAdmin/archive/master.zip
 sudo unzip SoftEtherAdmin.zip -d /srv/SoftEtherAdmin
 ```
 
-## Restoring npm packages
+### Restore npm packages
+Before running the application, you must restore the npm packages!
 ```shell
 cd /srv/SoftEtherAdmin
 sudo npm install
 ```
+
+### Configure the application
+Follow the instructions in the [config section](#config) to set up the application.
+You should have a config something like this:
+```json
+{
+    "serverPort": 8000,
+    "softEther" : {
+        "address" : "localhost",
+        "port" : 5555,
+        "vpncmdPath" : "/usr/local/vpnserver/vpncmd",
+        "password" : "supersecretpassword1"
+    }
+}
+```
+
+### Test
+At this stage the application should be runnable:
+```shell
+node app.js
+```
+Open another shell, and:
+```shell
+wget http://localhost:8000/
+```
+
+
+### Managing
+The recommended way of managing node.js apps is to use `pm2`:
+```shell
+# first, you need to install pm2 globally
+npm install pm2 -g
+# enter the dir wher SoftEtherAdmin is installed
+cd /srv/SoftEtherAdmin
+# Register the app with pm2
+pm2 start app.js --name "softetheradmin" 
+```
+
+More info in the [pm2 section](#pm2)
+
 
 ### Web server
 For serving the app through a web server, all you need to do is, configure the web server as a reverse proxy pointing to the application's port.
@@ -51,8 +91,99 @@ server {
                 proxy_cache_bypass $http_upgrade;
         }
 }
-
 ```
+
+
+## Windows
+Download the file https://github.com/notisrac/SoftEtherAdmin/archive/master.zip
+Then extract it to a folder. We will be using:
+```
+C:\NodeApps\
+```
+
+### Restore npm packages
+```shell
+cd C:\NodeApps\SoftEtherAdmin
+npm install
+```
+
+### Configure the application
+Follow the instructions in the [config section](#config) to set up the application.
+You should have a config something like this:
+```json
+{
+    "serverPort": 8000,
+    "softEther" : {
+        "address" : "localhost",
+        "port" : 5555,
+        "vpncmdPath" : "C:\\Program Files\\SoftEther\\vpncmd.exe",
+        "password" : "supersecretpassword1"
+    }
+}
+```
+
+### Test
+At this stage the application should be runnable:
+```shell
+node app.js
+```
+Open a browser, and navigate to: `http://localhost:8000/`
+
+### Managing
+The recommended way of managing node.js apps is to use `pm2`:
+
+```shell
+# first, you need to install pm2 globally
+npm install pm2 -g
+```
+
+Before you can use pm2 on windows, there are a few things that needs to be done:
+
+**pm2 folder**
+ - Create a folder for pm2: `C:\NodeApps\_pm2`
+
+**PM2_HOME environment variable**
+ - Create a new system level environment variable `PM2_HOME`, with the value `C:\NodeApps\_pm2`
+ - (You are better off restarting windows, for changes to take effect)
+ - Ensure that the variable is set up correctly `echo %PM2_HOME%`
+
+**Register the app in pm2**
+```shell
+# enter the dir wher SoftEtherAdmin is installed
+cd /srv/SoftEtherAdmin
+# Register the app with pm2
+pm2 start app.js --name "softetheradmin" 
+# If everything went fine, save the config
+pm2 save
+```
+
+**Create a service out of pm2**
+
+We will do this with the help of [pm2-windows-service](https://www.npmjs.com/package/pm2-windows-service)
+```shell
+## Make sure, you do this in an ADMINISTRATOR cmd ##
+# install
+npm install -g pm2-windows-service
+# Create the service
+pm2-service-install -n PM2
+```
+Answer the setup questions like this:
+ - ? Perform environment setup (recommended)? **Yes**
+ - ? Set PM2_HOME? **Yes**
+ - ? PM2_HOME value (this path should be accessible to the service user and
+should not contain any "user-context" variables [e.g. %APPDATA%]): **C:\NodeApps\_pm2**
+ - ? Set PM2_SERVICE_SCRIPTS (the list of start-up scripts for pm2)? **No**
+ - ? Set PM2_SERVICE_PM2_DIR (the location of the global pm2 to use with the service)? [recommended] **Yes**
+ - ? Specify the directory containing the pm2 version to be used by the
+service C:\USERS\NOTI\APPDATA\ROAMING\NPM\node_modules\pm2\index.js **press enter**
+ - PM2 service installed and started.
+
+
+Big thanks to Walter Accantelli for the Windows instructions: 
+https://blog.cloudboost.io/nodejs-pm2-startup-on-windows-db0906328d75
+
+More info in the [pm2 section](#pm2)
+
 
 ## Config
 The configuration of the app is handled by the `config` node module (https://www.npmjs.com/package/config).
@@ -69,7 +200,7 @@ By default you need to modify the `config/default.json` file:
 }
 ```
 Where:
- - **serverPort**: The port, where the node.js server should be listening
+ - **serverPort**: The port, where the node.js server should be listening. _Note: if you install multiple instances of the app, each needs a different port!_
  - **address**: Address of the VPN server. If you want to host this app on the same server as the VPN server, use `localhost`
  - **port**: The port of the VPN server
  - **vpncmdPath**: Absolute path to the vpncmd application. (On Windows, use double backslashes: `c:\\...\\...`!)
@@ -80,7 +211,7 @@ _Note: if you have cloned the repo, it is advisable to have the config in a `con
 More config file related info can be found here: https://github.com/lorenwest/node-config/wiki/Configuration-Files
 
 ## pm2
-pm2 is a process manager for node.js. It can monitor your app, launch it on server start, etc.
+pm2 is a process manager for node.js. It can monitor your app, launch it on server startup, etc.
 
 Install:
 ```shell
@@ -88,7 +219,6 @@ npm install pm2 -g
 ```
 Register the app with pm2
 ```shell
-cd /srv/SoftEtherAdmin
 pm2 start app.js --name "softetheradmin" 
 ```
 Check the current status of the app
